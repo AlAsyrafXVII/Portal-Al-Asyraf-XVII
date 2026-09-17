@@ -17,7 +17,7 @@
 
         /* Header Gold Semi-Transparan */
         .bg-gold-header-transparan {
-            background: linear-gradient(135deg, #be5111de 0%, rgba(69, 26, 3, 0.92) 100%);
+            background: linear-gradient(135deg, rgba(120, 53, 15, 0.90) 0%, rgba(69, 26, 3, 0.95) 100%);
             backdrop-filter: blur(10px);
             border-bottom: 4px solid #b45309;
         }
@@ -41,42 +41,42 @@
 <body class="text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
     <div>
-        <!-- HEADER / JUDUL UTAMA -->
+        <!-- HEADER / JUDUL UTAMA (RESPONSIVE HP & LAPTOP) -->
         <header class="bg-gold-header-transparan text-white py-6 shadow-2xl">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 
-                <!-- KIRI: LOGO UKURAN BESAR -->
-                <div class="flex items-center justify-start flex-shrink-0">
-                    <img src="LOGO AL ASYRAF.png" alt="Logo Al-Asyraf" class="w-20 h-20 md:w-40 md:h-40 object-contain rounded-full bg-white/30 p-1.5 shadow-lg border border-amber-400/40" onerror="this.style.display='none'">
+                <!-- LOGO -->
+                <div class="flex items-center justify-center md:justify-start flex-shrink-0">
+                    <img src="LOGO AL ASYRAF.png" alt="Logo Al-Asyraf" class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain rounded-full bg-white/10 p-1.5 shadow-lg border border-amber-400/40" onerror="this.style.display='none'">
                 </div>
 
-                <!-- TENGAH: JUDUL LURUS 1 BARIS & TOMBOL NAVIGASI DI BAWAHNYA -->
-                <div class="text-center flex-grow">
-                    <h1 class="text-lg md:text-2xl font-bold font-logo-style text-amber-100 uppercase whitespace-nowrap">PORTAL INFORMASI ANGKATAN AL ASYRAF XVII</h1>
-                    <p class="text-[10px] md:text-xs text-amber-200/90 font-semibold tracking-widest uppercase mt-1">Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah</p>
+                <!-- TENGAH: JUDUL & TOMBOL NAVIGASI -->
+                <div class="text-center flex-grow w-full">
+                    <h1 class="text-sm sm:text-lg md:text-2xl font-bold font-logo-style text-amber-100 uppercase leading-snug">PORTAL INFORMASI ANGKATAN AL ASYRAF XVII</h1>
+                    <p class="text-[9px] sm:text-[11px] md:text-xs text-amber-200/90 font-semibold tracking-wider uppercase mt-1">Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah</p>
                     
-                    <!-- Tombol Navigasi Persis di Bawah Tulisan Tengah -->
-                    <div class="mt-4 flex justify-center gap-3 flex-wrap">
-                        <button onclick="tampilHalaman('beranda')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Beranda</button>
-                        <button onclick="tampilHalaman('galeri')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Galeri</button>
-                        <button onclick="tampilHalaman('kas')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Kas</button>
+                    <!-- Tombol Navigasi -->
+                    <div class="mt-4 flex justify-center gap-2 sm:gap-3 flex-wrap">
+                        <button onclick="tampilHalaman('beranda')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Beranda</button>
+                        <button onclick="tampilHalaman('galeri')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Galeri</button>
+                        <button onclick="tampilHalaman('kas')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Kas</button>
                     </div>
                 </div>
 
-                <!-- KANAN: ELEMEN SEIMBANG (KOSONG / PEMBERSIH LAYOUT) -->
-                <div class="hidden md:block w-20 md:w-28 flex-shrink-0"></div>
+                <!-- ELEMEN PENYEIMBANG DI DESKTOP -->
+                <div class="hidden md:block w-28 flex-shrink-0"></div>
 
             </div>
         </header>
 
         <!-- KONTEN UTAMA -->
-        <main class="max-w-4xl mx-auto mt-8 p-4">
+        <main class="max-w-4xl mx-auto mt-6 sm:mt-8 p-3 sm:p-4">
             
             <!-- HALAMAN 1: BERANDA -->
             <div id="page-beranda" class="halaman-menu">
-                <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
-                  <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Update Terbaru</h2>
-                  <p class="text-slate-600 normal-case">Selamat datang di portal resmi Al-Asyraf XVII. Cek menu di atas untuk melihat galeri kenangan dan transparansi kas.</p>
+                <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 sm:p-8 mb-8 text-center">
+                  <h2 class="text-xl sm:text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Update Terbaru</h2>
+                  <p class="text-slate-600 text-sm sm:text-base normal-case">Memuat informasi terbaru...</p>
                 </section>
             </div>
 
@@ -87,39 +87,39 @@
 
             <!-- HALAMAN 3: TRANSPARANSI KAS -->
             <div id="page-kas" class="halaman-menu" style="display: none;">
-                <div class="bg-white/95 backdrop-blur-md p-6 rounded-xl shadow-lg border border-amber-200">
+                <div class="bg-white/95 backdrop-blur-md p-4 sm:p-6 rounded-xl shadow-lg border border-amber-200">
                     
                     <div class="text-center mb-6">
-                      <h2 class="text-2xl font-bold text-gold-custom mb-1 uppercase tracking-wide">Transparansi Dana Kas Angkatan</h2>
-                      <p class="text-slate-500 text-sm normal-case">Update real-time dari Rekapitulasi Keuangan Al-Asyraf XVII</p>
+                      <h2 class="text-xl sm:text-2xl font-bold text-gold-custom mb-1 uppercase tracking-wide">Transparansi Dana Kas Angkatan</h2>
+                      <p class="text-slate-500 text-xs sm:text-sm normal-case">Update real-time dari Rekapitulasi Keuangan Al-Asyraf XVII</p>
                     </div>
 
-                    <!-- Ringkasan Kartu (Summary Cards) -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                    <!-- Ringkasan Kartu -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                       <div class="card-gold-border p-4 rounded-lg shadow-sm">
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Target Kas</span>
-                        <h3 id="total-target" class="text-xl font-bold text-slate-900 mt-1">Rp0</h3>
+                        <h3 id="total-target" class="text-lg sm:text-xl font-bold text-slate-900 mt-1">Rp0</h3>
                       </div>
                       <div class="p-4 rounded-lg shadow-sm" style="background: linear-gradient(to right, #ecfdf5, #ffffff); border-left: 4px solid #059669;">
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Telah Bayar</span>
-                        <h3 id="total-bayar" class="text-xl font-bold text-emerald-700 mt-1">Rp0</h3>
+                        <h3 id="total-bayar" class="text-lg sm:text-xl font-bold text-emerald-700 mt-1">Rp0</h3>
                       </div>
                       <div class="p-4 rounded-lg shadow-sm" style="background: linear-gradient(to right, #fffbeb, #ffffff); border-left: 4px solid #d97706;">
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Progress Keseluruhan</span>
-                        <h3 id="total-persen" class="text-xl font-bold text-amber-700 mt-1">0%</h3>
+                        <h3 id="total-persen" class="text-lg sm:text-xl font-bold text-amber-700 mt-1">0%</h3>
                       </div>
                     </div>
 
                     <!-- Filter & Pencarian -->
                     <div class="bg-amber-50/60 p-4 rounded-lg border border-amber-200/60 mb-6 flex flex-wrap gap-3 justify-between items-center">
                       <div class="flex gap-2 flex-wrap" id="filter-container">
-                        <button onclick="filterProdi('ALL')" class="btn-prodi px-4 py-1.5 border border-amber-300 bg-amber-600 text-white rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider shadow-sm transition">Semua</button>
-                        <button onclick="filterProdi('PBA')" class="btn-prodi px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">PBA</button>
-                        <button onclick="filterProdi('IAT')" class="btn-prodi px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">IAT</button>
-                        <button onclick="filterProdi('HKI')" class="btn-prodi px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">HKI</button>
+                        <button onclick="filterProdi('ALL')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-300 bg-amber-600 text-white rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider shadow-sm transition">Semua</button>
+                        <button onclick="filterProdi('PBA')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">PBA</button>
+                        <button onclick="filterProdi('IAT')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">IAT</button>
+                        <button onclick="filterProdi('HKI')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-200 bg-white text-slate-700 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">HKI</button>
                       </div>
-                      <div>
-                        <input type="text" id="search-nama" placeholder="KETIK NAMA WARGA..." onkeyup="cariNama()" class="px-3 py-1.5 border border-amber-300 bg-white rounded-md text-xs w-56 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500 transition placeholder:normal-case">
+                      <div class="w-full sm:w-auto">
+                        <input type="text" id="search-nama" placeholder="KETIK NAMA WARGA..." onkeyup="cariNama()" class="px-3 py-1.5 border border-amber-300 bg-white rounded-md text-xs w-full sm:w-56 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500 transition placeholder:normal-case">
                       </div>
                     </div>
 
@@ -128,16 +128,16 @@
                         <table class="w-full border-collapse text-left text-xs">
                             <thead>
                                 <tr class="bg-amber-100/70 text-amber-900 border-b border-amber-200 font-bold uppercase tracking-wider">
-                                    <th class="py-3 px-4 text-center w-14">NO</th>
+                                    <th class="py-3 px-3 text-center w-12">NO</th>
                                     <th class="py-3 px-4">NAMA</th>
-                                    <th class="py-3 px-4 text-center w-20">PRODI</th>
+                                    <th class="py-3 px-3 text-center w-16">PRODI</th>
                                     <th class="py-3 px-4 text-right">TELAH BAYAR</th>
                                     <th class="py-3 px-4 text-right">TARGET</th>
-                                    <th class="py-3 px-4 text-center w-24">PERSENTASE</th>
+                                    <th class="py-3 px-3 text-center w-20">PERSENTASE</th>
                                 </tr>
                             </thead>
                             <tbody id="tabel-kas-body" class="divide-y divide-amber-100 uppercase">
-                                <!-- Tabel otomatis bersih / menampilkan instruksi di awal -->
+                                <!-- Tabel otomatis bersih -->
                             </tbody>
                         </table>
                     </div>
@@ -197,7 +197,7 @@
         }
     </script>
 
-    <!-- SCRIPT BERANDA -->
+    <!-- SCRIPT BERANDA (ANTI ERROR 404 & ANTI PECAH) -->
     <script>
         const urlCSVBeranda = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRS7RFGzyAuiPqYJhP5Zii7pXpnUhpNoE3rEDXPl6dBttREoP4os_7b7B5ncjNTgwj5d2wdRQLLJ4u4/pub?gid=279264445&single=true&output=csv";
 
@@ -209,38 +209,66 @@
                 const kontainerBeranda = document.getElementById('page-beranda');
                 
                 if (!kontainerBeranda) return;
-                if (baris.length > 1) {
-                    kontainerBeranda.innerHTML = "";
-                }
+                kontainerBeranda.innerHTML = "";
 
-                for (let i = 1; i < baris.length; i++) {
+                let adaKonten = false;
+
+                for (let i = baris.length - 1; i >= 1; i--) {
                     const row = baris[i].trim();
                     if (row) {
                         const kolom = parseCSVLine(row);
                         const timestamp = kolom[0] || "Baru saja";
-                        const judul = kolom[1] || "Tanpa Judul";
+                        const judul = kolom[1] || "";
                         
                         let rawPoster = kolom[2] || "";
                         let poster = "";
                         if (rawPoster.includes("id=")) {
                             const fileId = rawPoster.split("id=")[1].split("&")[0];
                             poster = `https://lh3.googleusercontent.com/d/${fileId}`;
-                        } else {
+                        } else if (rawPoster.startsWith("http")) {
                             poster = rawPoster;
                         }
 
                         const keterangan = kolom[3] || "";
-                        const kartu = document.createElement('div');
-                        kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 mb-6 text-center border-t-4 border-amber-600";
-                        kartu.innerHTML = `
-                            <span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase">${timestamp}</span>
-                            <h2 class="text-2xl font-bold my-3 text-slate-800 uppercase">${judul}</h2>
-                            ${poster ? `<img src="${poster}" alt="Poster" class="mx-auto rounded-lg shadow-sm mb-4 w-full object-contain max-h-96">` : ''}
-                            <p class="text-slate-600 text-left mt-4 leading-relaxed normal-case">${keterangan}</p>
-                        `;
-                        kontainerBeranda.appendChild(kartu);
+
+                        if (judul || keterangan || poster) {
+                            adaKonten = true;
+                            const kartu = document.createElement('div');
+                            kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 mb-6 text-left border-t-4 border-amber-600";
+                            
+                            let htmlIsi = `<div class="text-center mb-3"><span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase">${timestamp}</span></div>`;
+                            
+                            if (judul) {
+                                htmlIsi += `<h2 class="text-xl md:text-2xl font-bold my-3 text-slate-800 uppercase text-center">${judul}</h2>`;
+                            }
+                            
+                            // Hanya tampilkan tag img jika link posternya valid dan tidak kosong
+                            if (poster) {
+                                htmlIsi += `
+                                <div class="text-center mb-4">
+                                    <img src="${poster}" alt="Poster" class="mx-auto rounded-lg shadow-sm w-full object-contain max-h-[500px]" onerror="this.parentElement.style.display='none'">
+                                </div>`;
+                            }
+                            
+                            if (keterangan) {
+                                let formatKeterangan = keterangan.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
+                                htmlIsi += `<p class="text-slate-700 mt-4 leading-relaxed normal-case text-sm md:text-base">${formatKeterangan}</p>`;
+                            }
+
+                            kartu.innerHTML = htmlIsi;
+                            kontainerBeranda.appendChild(kartu);
+                        }
                     }
                 }
+
+                if (!adaKonten) {
+                    kontainerBeranda.innerHTML = `
+                        <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
+                          <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Belum Ada Informasi</h2>
+                          <p class="text-slate-600 normal-case">Silakan input pengumuman melalui Google Form yang tersedia.</p>
+                        </section>`;
+                }
+
             } catch (error) {
                 console.error("Gagal menarik data Beranda:", error);
             }
@@ -262,8 +290,8 @@
                 if (!kontainerGaleri) return;
 
                 let htmlContent = `
-                    <div class="bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6">
-                        <h2 class="text-3xl font-bold mb-6 text-amber-900 text-center uppercase tracking-wide">Galeri Kegiatan Angkatan</h2>
+                    <div class="bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-4 sm:p-6">
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-amber-900 text-center uppercase tracking-wide">Galeri Kegiatan Angkatan</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 `;
 
@@ -279,7 +307,7 @@
                         if (rawFoto.includes("id=")) {
                             const fileId = rawFoto.split("id=")[1].split("&")[0];
                             fotoUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
-                        } else {
+                        } else if (rawFoto.startsWith("http")) {
                             fotoUrl = rawFoto;
                         }
 
@@ -289,7 +317,7 @@
                             htmlContent += `
                                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-amber-200 hover:shadow-md transition flex flex-col justify-between">
                                     <div>
-                                        <img src="${fotoUrl}" alt="${judul}" class="w-full h-48 object-cover object-center">
+                                        <img src="${fotoUrl}" alt="${judul}" class="w-full h-48 object-cover object-center" onerror="this.src='https://via.placeholder.com/400x300?text=Foto+Tidak+Tersedia'">
                                         <div class="p-4">
                                             <span class="text-xs text-amber-700 font-semibold uppercase">${timestamp}</span>
                                             <h3 class="text-base font-bold text-slate-800 mt-1 uppercase">${judul}</h3>
@@ -417,12 +445,12 @@
                 let tr = document.createElement('tr');
                 tr.className = "hover:bg-amber-50/50 transition uppercase";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 text-center text-slate-500 font-medium">${row.no}</td>
+                    <td class="py-3 px-3 text-center text-slate-500 font-medium">${row.no}</td>
                     <td class="py-3 px-4 font-semibold text-slate-800 whitespace-nowrap">${row.nama}</td>
-                    <td class="py-3 px-4 text-center"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-[11px] font-bold">${row.prodi}</span></td>
+                    <td class="py-3 px-3 text-center"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-[11px] font-bold">${row.prodi}</span></td>
                     <td class="py-3 px-4 text-right font-semibold text-emerald-600">${row.telahBayar}</td>
                     <td class="py-3 px-4 text-right text-slate-600">${row.target}</td>
-                    <td class="py-3 px-4 text-center font-bold text-amber-600">${row.persentase}</td>
+                    <td class="py-3 px-3 text-center font-bold text-amber-600">${row.persentase}</td>
                 `;
                 tbody.appendChild(tr);
             });
