@@ -41,7 +41,7 @@
 <body class="text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
     <div>
-        <!-- HEADER / JUDUL UTAMA (RESPONSIVE HP & LAPTOP) -->
+        <!-- HEADER / JUDUL UTAMA (BERSIH UNTUK WARGA ANGKATAN) -->
         <header class="bg-gold-header-transparan text-white py-6 shadow-2xl">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 
@@ -55,7 +55,7 @@
                     <h1 class="text-sm sm:text-lg md:text-2xl font-bold font-logo-style text-amber-100 uppercase leading-snug">PORTAL INFORMASI ANGKATAN AL ASYRAF XVII</h1>
                     <p class="text-[9px] sm:text-[11px] md:text-xs text-amber-200/90 font-semibold tracking-wider uppercase mt-1">Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah</p>
                     
-                    <!-- Tombol Navigasi -->
+                    <!-- Tombol Navigasi (Hanya Beranda, Galeri, Kas) -->
                     <div class="mt-4 flex justify-center gap-2 sm:gap-3 flex-wrap">
                         <button onclick="tampilHalaman('beranda')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Beranda</button>
                         <button onclick="tampilHalaman('galeri')" class="bg-transparent hover:bg-white/10 border border-amber-300/60 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Galeri</button>
@@ -197,83 +197,53 @@
         }
     </script>
 
-    <!-- SCRIPT BERANDA (ANTI ERROR 404 & ANTI PECAH) -->
+    <!-- SCRIPT BERANDA (MEMBACA DARI PANEL ADMIN RAHASIA) -->
     <script>
-        const urlCSVBeranda = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRS7RFGzyAuiPqYJhP5Zii7pXpnUhpNoE3rEDXPl6dBttREoP4os_7b7B5ncjNTgwj5d2wdRQLLJ4u4/pub?gid=279264445&single=true&output=csv";
+        function muatPengumumanAdmin() {
+            const kontainerBeranda = document.getElementById('page-beranda');
+            if (!kontainerBeranda) return;
+            
+            kontainerBeranda.innerHTML = "";
 
-        async function muatPengumuman() {
-            try {
-                const response = await fetch(urlCSVBeranda);
-                const dataText = await response.text();
-                const baris = dataText.split("\n");
-                const kontainerBeranda = document.getElementById('page-beranda');
-                
-                if (!kontainerBeranda) return;
-                kontainerBeranda.innerHTML = "";
+            let daftarPostingan = JSON.parse(localStorage.getItem('portal_alasyraf_posts')) || [];
 
-                let adaKonten = false;
-
-                for (let i = baris.length - 1; i >= 1; i--) {
-                    const row = baris[i].trim();
-                    if (row) {
-                        const kolom = parseCSVLine(row);
-                        const timestamp = kolom[0] || "Baru saja";
-                        const judul = kolom[1] || "";
-                        
-                        let rawPoster = kolom[2] || "";
-                        let poster = "";
-                        if (rawPoster.includes("id=")) {
-                            const fileId = rawPoster.split("id=")[1].split("&")[0];
-                            poster = `https://lh3.googleusercontent.com/d/${fileId}`;
-                        } else if (rawPoster.startsWith("http")) {
-                            poster = rawPoster;
-                        }
-
-                        const keterangan = kolom[3] || "";
-
-                        if (judul || keterangan || poster) {
-                            adaKonten = true;
-                            const kartu = document.createElement('div');
-                            kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 mb-6 text-left border-t-4 border-amber-600";
-                            
-                            let htmlIsi = `<div class="text-center mb-3"><span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase">${timestamp}</span></div>`;
-                            
-                            if (judul) {
-                                htmlIsi += `<h2 class="text-xl md:text-2xl font-bold my-3 text-slate-800 uppercase text-center">${judul}</h2>`;
-                            }
-                            
-                            // Hanya tampilkan tag img jika link posternya valid dan tidak kosong
-                            if (poster) {
-                                htmlIsi += `
-                                <div class="text-center mb-4">
-                                    <img src="${poster}" alt="Poster" class="mx-auto rounded-lg shadow-sm w-full object-contain max-h-[500px]" onerror="this.parentElement.style.display='none'">
-                                </div>`;
-                            }
-                            
-                            if (keterangan) {
-                                let formatKeterangan = keterangan.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
-                                htmlIsi += `<p class="text-slate-700 mt-4 leading-relaxed normal-case text-sm md:text-base">${formatKeterangan}</p>`;
-                            }
-
-                            kartu.innerHTML = htmlIsi;
-                            kontainerBeranda.appendChild(kartu);
-                        }
-                    }
-                }
-
-                if (!adaKonten) {
-                    kontainerBeranda.innerHTML = `
-                        <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
-                          <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Belum Ada Informasi</h2>
-                          <p class="text-slate-600 normal-case">Silakan input pengumuman melalui Google Form yang tersedia.</p>
-                        </section>`;
-                }
-
-            } catch (error) {
-                console.error("Gagal menarik data Beranda:", error);
+            if (daftarPostingan.length === 0) {
+                kontainerBeranda.innerHTML = `
+                    <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
+                      <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Belum Ada Informasi</h2>
+                      <p class="text-slate-600 normal-case">Informasi terbaru akan segera diunggah oleh pengurus angkatan.</p>
+                    </section>`;
+                return;
             }
+
+            daftarPostingan.forEach(post => {
+                const kartu = document.createElement('div');
+                kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 md:p-10 mb-8 text-left border-t-4 border-amber-600 w-full";
+                
+                let htmlIsi = `<div class="text-center mb-4"><span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase tracking-wider">${post.timestamp}</span></div>`;
+                
+                if (post.judul) {
+                    htmlIsi += `<h2 class="text-2xl md:text-3xl font-bold my-4 text-slate-800 uppercase text-center tracking-wide">${post.judul}</h2>`;
+                }
+                
+                if (post.poster) {
+                    htmlIsi += `
+                    <div class="text-center mb-8">
+                        <img src="${post.poster}" alt="Poster" class="mx-auto rounded-lg shadow-md w-full object-contain max-h-[700px]" onerror="this.parentElement.style.display='none'">
+                    </div>`;
+                }
+                
+                if (post.keterangan) {
+                    let formatKeterangan = post.keterangan.replace(/\n/g, '<br>');
+                    htmlIsi += `<div class="text-slate-700 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4">${formatKeterangan}</div>`;
+                }
+
+                kartu.innerHTML = htmlIsi;
+                kontainerBeranda.appendChild(kartu);
+            });
         }
-        muatPengumuman();
+
+        muatPengumumanAdmin();
     </script>
 
     <!-- SCRIPT GALERI -->
