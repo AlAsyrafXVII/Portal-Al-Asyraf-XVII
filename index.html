@@ -197,55 +197,146 @@
         }
     </script>
 
-    <!-- SCRIPT BERANDA (MEMBACA DARI PANEL ADMIN RAHASIA) -->
+   <!-- SCRIPT BERANDA (ANTI-PECAH + PENJEMPUT POSTER GOOGLE DRIVE PALING KEBAL) -->
     <script>
-        function muatPengumumanAdmin() {
-            const kontainerBeranda = document.getElementById('page-beranda');
-            if (!kontainerBeranda) return;
+        const urlCSVBeranda = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRS7RFGzyAuiPqYJhP5Zii7pXpnUhpNoE3rEDXPl6dBttREoP4os_7b7B5ncjNTgwj5d2wdRQLLJ4u4/pub?gid=279264445&single=true&output=csv";
+
+        // Parser CSV Profesional yang tahan terhadap enter di dalam tanda kutip teks
+        function parseCSVPro(text) {
+            let lines = [];
+            let row = [];
+            let inQuotes = false;
+            let current = '';
             
-            kontainerBeranda.innerHTML = "";
-
-            let daftarPostingan = JSON.parse(localStorage.getItem('portal_alasyraf_posts')) || [];
-
-            if (daftarPostingan.length === 0) {
-                kontainerBeranda.innerHTML = `
-                    <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
-                      <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Belum Ada Informasi</h2>
-                      <p class="text-slate-600 normal-case">Informasi terbaru akan segera diunggah oleh pengurus angkatan.</p>
-                    </section>`;
-                return;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                let nextC = text[i + 1];
+                
+                if (c === '"') {
+                    if (inQuotes && nextC === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (c === ',' && !inQuotes) {
+                    row.push(current);
+                    current = '';
+                } else if ((c === '\r' || c === '\n') && !inQuotes) {
+                    if (c === '\r' && nextC === '\n') { i++; }
+                    row.push(current);
+                    lines.push(row);
+                    row = [];
+                    current = '';
+                } else {
+                    current += c;
+                }
             }
-
-            daftarPostingan.forEach(post => {
-                const kartu = document.createElement('div');
-                kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 md:p-10 mb-8 text-left border-t-4 border-amber-600 w-full";
-                
-                let htmlIsi = `<div class="text-center mb-4"><span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase tracking-wider">${post.timestamp}</span></div>`;
-                
-                if (post.judul) {
-                    htmlIsi += `<h2 class="text-2xl md:text-3xl font-bold my-4 text-slate-800 uppercase text-center tracking-wide">${post.judul}</h2>`;
-                }
-                
-                if (post.poster) {
-                    htmlIsi += `
-                    <div class="text-center mb-8">
-                        <img src="${post.poster}" alt="Poster" class="mx-auto rounded-lg shadow-md w-full object-contain max-h-[700px]" onerror="this.parentElement.style.display='none'">
-                    </div>`;
-                }
-                
-                if (post.keterangan) {
-                    let formatKeterangan = post.keterangan.replace(/\n/g, '<br>');
-                    htmlIsi += `<div class="text-slate-700 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4">${formatKeterangan}</div>`;
-                }
-
-                kartu.innerHTML = htmlIsi;
-                kontainerBeranda.appendChild(kartu);
-            });
+            if (current || row.length > 0) {
+                row.push(current);
+                lines.push(row);
+            }
+            return lines;
         }
 
-        muatPengumumanAdmin();
-    </script>
+        // Fungsi super kebal untuk mendeteksi berbagai format link Google Drive / Gambar
+        function getCleanImageUrl(rawLink) {
+            if (!rawLink) return "";
+            let link = rawLink.trim();
+            
+            // Format 1: Mengandung ?id=... atau &id=...
+            if (link.includes("id=")) {
+                try {
+                    const fileId = link.split("id=")[1].split("&")[0];
+                    if (fileId) return `https://lh3.googleusercontent.com/d/${fileId}`;
+                } catch (e) {}
+            }
+            
+            // Format 2: Mengandung /file/d/FILE_ID/view
+            if (link.includes("/file/d/")) {
+                try {
+                    const parts = link.split("/file/d/");
+                    const fileId = parts[1].split("/")[0];
+                    if (fileId) return `https://lh3.googleusercontent.com/d/${fileId}`;
+                } catch (e) {}
+            }
+            
+            // Format 3: Link gambar langsung (http/https)
+            if (link.startsWith("http")) {
+                return link;
+            }
+            
+            return "";
+        }
 
+        async function muatPengumuman() {
+            try {
+                const response = await fetch(urlCSVBeranda);
+                const dataText = await response.text();
+                
+                const rows = parseCSVPro(dataText);
+                const kontainerBeranda = document.getElementById('page-beranda');
+                
+                if (!kontainerBeranda) return;
+                kontainerBeranda.innerHTML = "";
+
+                let adaKonten = false;
+
+                for (let i = rows.length - 1; i >= 1; i--) {
+                    const kolom = rows[i];
+                    
+                    if (kolom && kolom.length >= 4) {
+                        const timestamp = kolom[0] || "Baru saja";
+                        const judul = kolom[1] || "";
+                        
+                        let rawPoster = kolom[2] || "";
+                        let poster = getCleanImageUrl(rawPoster);
+
+                        const keterangan = kolom[3] || "";
+
+                        if (judul || keterangan || poster) {
+                            adaKonten = true;
+                            const kartu = document.createElement('div');
+                            kartu.className = "bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-6 md:p-10 mb-8 text-left border-t-4 border-amber-600 w-full";
+                            
+                            let htmlIsi = `<div class="text-center mb-4"><span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full uppercase tracking-wider">${timestamp}</span></div>`;
+                            
+                            if (judul) {
+                                htmlIsi += `<h2 class="text-2xl md:text-3xl font-bold my-4 text-slate-800 uppercase text-center tracking-wide">${judul}</h2>`;
+                            }
+                            
+                            if (poster) {
+                                htmlIsi += `
+                                <div class="text-center mb-8">
+                                    <img src="${poster}" alt="Poster" class="mx-auto rounded-lg shadow-md w-full object-contain max-h-[700px]" onerror="this.parentElement.style.display='none'">
+                                </div>`;
+                            }
+                            
+                            if (keterangan) {
+                                let formatKeterangan = keterangan.replace(/\r?\n/g, '<br>');
+                                htmlIsi += `<div class="text-slate-700 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4">${formatKeterangan}</div>`;
+                            }
+
+                            kartu.innerHTML = htmlIsi;
+                            kontainerBeranda.appendChild(kartu);
+                        }
+                    }
+                }
+
+                if (!adaKonten) {
+                    kontainerBeranda.innerHTML = `
+                        <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-amber-200 p-8 mb-8 text-center">
+                          <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Belum Ada Informasi</h2>
+                          <p class="text-slate-600 normal-case">Informasi terbaru akan segera diunggah oleh pengurus angkatan.</p>
+                        </section>`;
+                }
+
+            } catch (error) {
+                console.error("Gagal menarik data Beranda:", error);
+            }
+        }
+        muatPengumuman();
+    </script>
     <!-- SCRIPT GALERI -->
     <script>
         const urlCSVGaleri = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8wpJnmpxyn-eNoxvzH_76pEfQCK08B2g3cxI66tlwfxlRxRAMem2XfwCES7mMYCVzwYZgvk7pHRNF/pub?gid=1915587298&single=true&output=csv";
