@@ -156,14 +156,16 @@
 
             <div id="page-galeri" class="halaman-menu" style="display: none;"></div>
 
+            <!-- HALAMAN KAS & CASHFLOW -->
             <div id="page-kas" class="halaman-menu" style="display: none;">
-                <div class="card-transparan p-4 sm:p-6 rounded-xl shadow-lg border border-amber-200/80">
+                <div class="card-transparan p-4 sm:p-6 rounded-xl shadow-lg border border-amber-200/80 mb-8">
                     
                     <div class="text-center mb-6">
                       <h2 class="text-xl sm:text-2xl font-bold text-gold-custom mb-1 uppercase tracking-wide">Transparansi Dana Kas Angkatan</h2>
-                      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm normal-case">Update real-time dari Rekapitulasi Keuangan Al-Asyraf XVII</p>
+                      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm normal-case">Update real-time dari Rekapitulasi Keuangan & Cashflow Al-Asyraf XVII</p>
                     </div>
 
+                    <!-- KARTU RINGKASAN WARGA -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                       <div class="card-gold-border p-4 rounded-lg shadow-sm">
                         <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Target Kas</span>
@@ -179,6 +181,22 @@
                       </div>
                     </div>
 
+                    <!-- KARTU RINGKASAN CASHFLOW ARUS KAS -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                      <div class="p-4 rounded-lg shadow-sm bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600">
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Pemasukan (Saldo Awal)</span>
+                        <h3 id="cash-pemasukan" class="text-lg sm:text-xl font-bold text-blue-700 dark:text-blue-400 mt-1">Rp0</h3>
+                      </div>
+                      <div class="p-4 rounded-lg shadow-sm bg-rose-50 dark:bg-slate-800 border-l-4 border-rose-600">
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Pengeluaran (Keluar)</span>
+                        <h3 id="cash-pengeluaran" class="text-lg sm:text-xl font-bold text-rose-700 dark:text-rose-400 mt-1">Rp0</h3>
+                      </div>
+                      <div class="p-4 rounded-lg shadow-sm bg-purple-50 dark:bg-slate-800 border-l-4 border-purple-600">
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sisa Saldo Operasional</span>
+                        <h3 id="cash-saldo-bersih" class="text-lg sm:text-xl font-bold text-purple-700 dark:text-purple-400 mt-1">Rp0</h3>
+                      </div>
+                    </div>
+
                     <div class="bg-amber-50/75 dark:bg-slate-800/80 p-4 rounded-lg border border-amber-200/60 dark:border-slate-700 mb-6 flex flex-wrap gap-3 justify-between items-center">
                       <div class="flex gap-2 flex-wrap" id="filter-container">
                         <button onclick="filterProdi('ALL')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-300 bg-amber-600 text-white rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider shadow-sm transition">Semua</button>
@@ -191,7 +209,8 @@
                       </div>
                     </div>
 
-                    <div class="overflow-x-auto rounded-lg border border-amber-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900">
+                    <!-- TABEL PEMBAYARAN WARGA -->
+                    <div class="overflow-x-auto rounded-lg border border-amber-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900 mb-8">
                         <table class="w-full border-collapse text-left text-xs">
                             <thead>
                                 <tr class="bg-amber-100/70 dark:bg-slate-800 text-amber-900 dark:text-amber-400 border-b border-amber-200 dark:border-slate-700 font-bold uppercase tracking-wider">
@@ -205,6 +224,39 @@
                             </thead>
                             <tbody id="tabel-kas-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase"></tbody>
                         </table>
+                    </div>
+
+                    <!-- TABEL RIWAYAT CASHFLOW / PENGELUARAN -->
+                    <div class="mt-8 pt-6 border-t-2 border-amber-200 dark:border-slate-700">
+                        <h3 class="text-base sm:text-lg font-bold text-gold-custom mb-3 uppercase tracking-wide text-center">Riwayat Arus Kas & Pengeluaran</h3>
+                        <div class="overflow-x-auto rounded-lg border border-amber-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900 mb-4">
+                            <table class="w-full border-collapse text-left text-xs">
+                               <thead>
+                                    <tr class="bg-amber-100/70 dark:bg-slate-800 text-amber-900 dark:text-amber-400 border-b border-amber-200 dark:border-slate-700 font-bold uppercase tracking-wider">
+                                        <th class="py-3 px-3 text-center w-12">NO</th>
+                                        <th class="py-3 px-3 text-center">TANGGAL</th>
+                                        <th class="py-3 px-4">KETERANGAN</th>
+                                        <th class="py-3 px-4 text-right">SALDO AWAL</th>
+                                        <th class="py-3 px-4 text-right">KELUAR</th>
+                                        <th class="py-3 px-4 text-right">SISA SALDO</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-cashflow-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- KOTAK KETERANGAN / CATATAN TRANSPARANSI -->
+                        <div class="bg-amber-100/80 dark:bg-slate-800/90 p-4 rounded-lg border border-amber-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-xs space-y-2">
+                            <h4 class="font-bold text-amber-900 dark:text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
+                                <span>📌</span> Catatan Transparansi Keuangan:
+                            </h4>
+                            <ul class="list-disc list-inside space-y-1 normal-case pl-1">
+                                <li><strong>Saldo Awal / Pemasukan</strong> dihitung berdasarkan akumulasi dana kas masuk dan kas operasional angkatan.</li>
+                                <li><strong>Pengeluaran (Keluar)</strong> dicatat secara berkala berdasarkan setiap transaksi atau belanja kebutuhan kegiatan angkatan.</li>
+                                <li><strong>Sisa Saldo Operasional</strong> menunjukkan sisa dana riil yang saat ini dipegang oleh bendahara/pengurus dan siap digunakan untuk kepentingan angkatan.</li>
+                                <li>Data diperbarui secara otomatis dan sinkron langsung dengan rekam jejak keuangan resmi Al-Asyraf XVII.</li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>
@@ -229,6 +281,8 @@
     </footer>
 
     <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyJOOjri-QLlC9fkTQiA0_Wjjq0PWXsrkXULYi8lTpIPaKjUGEb47LD1uLJxWT7cwnG/exec";
+
         function toggleDarkMode() {
             const body = document.body;
             const btn = document.getElementById('btn-darkmode');
@@ -346,9 +400,11 @@
         }
     </script>
 
+    <!-- SCRIPT BERANDA -->
     <script>
         const urlCSVBeranda = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRS7RFGzyAuiPqYJhP5Zii7pXpnUhpNoE3rEDXPl6dBttREoP4os_7b7B5ncjNTgwj5d2wdRQLLJ4u4/pub?gid=279264445&single=true&output=csv";
         let semuaDataBeranda = [];
+        let globalLikes = {};
 
         function parseCSVPro(text) {
             let lines = [];
@@ -409,6 +465,11 @@
 
         async function muatPengumuman() {
             try {
+                try {
+                    const resLikes = await fetch(`${scriptURL}?action=getLikes`);
+                    globalLikes = await resLikes.json();
+                } catch(e) { console.error("Gagal load likes:", e); }
+
                 const response = await fetch(urlCSVBeranda);
                 const dataText = await response.text();
                 const rows = parseCSVPro(dataText);
@@ -481,11 +542,13 @@
                     htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4">${formatKeterangan}</div>`;
                 }
 
+                let totalLike = globalLikes[post.id] || 0;
+
                 htmlIsi += `
                 <div class="mt-8 pt-4 border-t border-amber-200/60 dark:border-slate-700 flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
                     <div class="flex items-center gap-4">
                         <button onclick="handleLike(${post.id})" id="btn-like-${post.id}" class="flex items-center gap-1.5 bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-lg border border-amber-200 dark:border-slate-700 transition">
-                            ❤️ <span id="count-like-${post.id}">0</span> Suka
+                            ❤️ <span id="count-like-${post.id}">${totalLike}</span> Suka
                         </button>
                         <button onclick="toggleKomentar(${post.id})" class="flex items-center gap-1.5 bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-lg border border-amber-200 dark:border-slate-700 transition">
                             💬 Komentar
@@ -497,19 +560,56 @@
                 </div>
 
                 <div id="komentar-section-${post.id}" class="mt-4 pt-4 border-t border-dashed border-amber-200 dark:border-slate-700 hidden">
-                    <div class="space-y-3 mb-3" id="list-komentar-${post.id}"></div>
+                    <div class="space-y-3 mb-3" id="list-komentar-${post.id}">
+                        <p class="text-xs text-slate-500 italic">Memuat komentar...</p>
+                    </div>
                     <div class="flex gap-2">
-                        <input type="text" id="input-nama-${post.id}" placeholder="Nama Anda..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs w-1/3 bg-white/90 dark:bg-slate-800 dark:text-white uppercase">
-                        <input type="text" id="input-pesan-${post.id}" placeholder="Tulis komentar..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs flex-grow bg-white/95 dark:bg-slate-800 dark:text-white" onkeypress="if(event.key === 'Enter') kirimKomentar(${post.id})">
-                        <button onclick="kirimKomentar(${post.id})" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold uppercase">Kirim</button>
+                        <input type="text" id="input-nama-${post.id}" placeholder="NAMA ANDA..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs w-1/3 bg-white/90 dark:bg-slate-800 dark:text-white uppercase font-semibold">
+                        <input type="text" id="input-pesan-${post.id}" placeholder="Tulis komentar..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs flex-grow bg-white/95 dark:bg-slate-800 dark:text-white normal-case" onkeypress="if(event.key === 'Enter') kirimKomentar(${post.id})">
+                        <button onclick="kirimKomentar(${post.id})" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold uppercase shadow-sm">Kirim</button>
                     </div>
                 </div>
                 `;
 
                 kartu.innerHTML = htmlIsi;
                 kontainer.appendChild(kartu);
-                updateTampilanLike(post.id);
+                cekStatusLikeLokal(post.id);
             });
+        }
+
+        function cekStatusLikeLokal(postId) {
+            let userLiked = localStorage.getItem(`user_liked_${postId}`) === 'true';
+            const btn = document.getElementById(`btn-like-${postId}`);
+            if (btn && userLiked) {
+                btn.classList.add('bg-rose-100', 'dark:bg-rose-950', 'border-rose-300', 'text-rose-700', 'dark:text-rose-300');
+            }
+        }
+
+        async function handleLike(postId) {
+            let countSpan = document.getElementById(`count-like-${postId}`);
+            let currentLikes = parseInt(countSpan.innerText) || 0;
+            const btn = document.getElementById(`btn-like-${postId}`);
+            let userLiked = localStorage.getItem(`user_liked_${postId}`) === 'true';
+
+            if (!userLiked) {
+                currentLikes += 1;
+                localStorage.setItem(`user_liked_${postId}`, 'true');
+                btn.classList.add('bg-rose-100', 'dark:bg-rose-950', 'border-rose-300', 'text-rose-700', 'dark:text-rose-300');
+            } else {
+                currentLikes = Math.max(0, currentLikes - 1);
+                localStorage.setItem(`user_liked_${postId}`, 'false');
+                btn.classList.remove('bg-rose-100', 'dark:bg-rose-950', 'border-rose-300', 'text-rose-700', 'dark:text-rose-300');
+            }
+            countSpan.innerText = currentLikes;
+
+            try {
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "like", postId: postId, totalLikes: currentLikes })
+                });
+            } catch (e) { console.error("Gagal update like:", e); }
         }
 
         function cariBeranda() {
@@ -524,44 +624,42 @@
             tampilkanBeranda(hasilFilter);
         }
 
-        function handleLike(id) {
-            let likes = JSON.parse(localStorage.getItem(`likes_${id}`)) || { count: 0, liked: false };
-            if (!likes.liked) {
-                likes.count += 1;
-                likes.liked = true;
-            } else {
-                likes.count -= 1;
-                likes.liked = false;
-            }
-            localStorage.setItem(`likes_${id}`, JSON.stringify(likes));
-            updateTampilanLike(id);
-        }
-
-        function updateTampilanLike(id) {
-            let likes = JSON.parse(localStorage.getItem(`likes_${id}`)) || { count: 0, liked: false };
-            const count = document.getElementById(`count-like-${id}`);
-            const btn = document.getElementById(`btn-like-${id}`);
-            if(count) count.innerText = likes.count;
-            if(btn) {
-                if(likes.liked) {
-                    btn.classList.add('bg-rose-100', 'dark:bg-rose-950', 'border-rose-300', 'text-rose-700', 'dark:text-rose-300');
-                } else {
-                    btn.classList.remove('bg-rose-100', 'dark:bg-rose-950', 'border-rose-300', 'text-rose-700', 'dark:text-rose-300');
-                }
-            }
-        }
-
-        function toggleKomentar(id) {
-            const section = document.getElementById(`komentar-section-${id}`);
+        function toggleKomentar(postId) {
+            const section = document.getElementById(`komentar-section-${postId}`);
             if(section) {
                 section.classList.toggle('hidden');
-                muatKomentar(id);
+                muatKomentarOnline(postId);
             }
         }
 
-        function kirimKomentar(id) {
-            const inputNama = document.getElementById(`input-nama-${id}`);
-            const inputPesan = document.getElementById(`input-pesan-${id}`);
+        async function muatKomentarOnline(postId) {
+            const listContainer = document.getElementById(`list-komentar-${postId}`);
+            if(!listContainer) return;
+
+            try {
+                const res = await fetch(`${scriptURL}?action=getKomentar&postId=${postId}`);
+                const komentarList = await res.json();
+
+                listContainer.innerHTML = "";
+                if(komentarList.length === 0) {
+                    listContainer.innerHTML = `<p class="text-xs text-slate-500 dark:text-slate-400 italic">Belum ada komentar.</p>`;
+                    return;
+                }
+
+                komentarList.forEach(k => {
+                    const div = document.createElement('div');
+                    div.className = "bg-amber-50/70 dark:bg-slate-800 p-2.5 rounded-lg border border-amber-200/60 dark:border-slate-700 text-xs";
+                    div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${k.nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${k.waktu}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case">${k.pesan}</p>`;
+                    listContainer.appendChild(div);
+                });
+            } catch (e) {
+                listContainer.innerHTML = `<p class="text-xs text-red-500 italic">Gagal memuat komentar dari server.</p>`;
+            }
+        }
+
+        async function kirimKomentar(postId) {
+            const inputNama = document.getElementById(`input-nama-${postId}`);
+            const inputPesan = document.getElementById(`input-pesan-${postId}`);
             const nama = inputNama.value.trim();
             const pesan = inputPesan.value.trim();
 
@@ -570,41 +668,30 @@
                 return;
             }
 
-            let komentarList = JSON.parse(localStorage.getItem(`komentar_${id}`)) || [];
-            komentarList.push({ nama: nama, pesan: pesan, waktu: new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'}) });
-            localStorage.setItem(`komentar_${id}`, JSON.stringify(komentarList));
+            const waktuNow = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
+            const listContainer = document.getElementById(`list-komentar-${postId}`);
+            if(listContainer.querySelector('.italic')) listContainer.innerHTML = '';
             
+            const div = document.createElement('div');
+            div.className = "bg-amber-50/70 dark:bg-slate-800 p-2.5 rounded-lg border border-amber-200/60 dark:border-slate-700 text-xs";
+            div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${waktuNow}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case">${pesan}</p>`;
+            listContainer.appendChild(div);
+
             inputPesan.value = "";
-            muatKomentar(id);
-        }
 
-        function muatKomentar(id) {
-            const listContainer = document.getElementById(`list-komentar-${id}`);
-            if(!listContainer) return;
-
-            let komentarList = JSON.parse(localStorage.getItem(`komentar_${id}`)) || [];
-            listContainer.innerHTML = "";
-
-            if(komentarList.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-slate-500 dark:text-slate-400 italic">Belum ada komentar.</p>`;
-                return;
-            }
-
-            komentarList.forEach(k => {
-                const div = document.createElement('div');
-                div.className = "bg-amber-50/70 dark:bg-slate-800 p-2.5 rounded-lg border border-amber-200/60 dark:border-slate-700 text-xs";
-                div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${k.nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${k.waktu}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case">${k.pesan}</p>`;
-                listContainer.appendChild(div);
-            });
+            try {
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "komentar", postId: postId, nama: nama, pesan: pesan, waktu: waktuNow })
+                });
+            } catch (e) { console.error("Gagal kirim komentar:", e); }
         }
 
         function sharePost(judul) {
             if (navigator.share) {
-                navigator.share({
-                    title: judul,
-                    text: 'Baca info terbaru dari Portal Angkatan Al-Asyraf XVII:',
-                    url: window.location.href,
-                }).catch(() => {});
+                navigator.share({ title: judul, text: 'Baca info terbaru dari Portal Angkatan Al-Asyraf XVII:', url: window.location.href }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(window.location.href);
                 alert("Link berhasil disalin ke clipboard!");
@@ -614,6 +701,7 @@
         muatPengumuman();
     </script>
 
+    <!-- SCRIPT GALERI -->
     <script>
         const urlCSVGaleri = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8wpJnmpxyn-eNoxvzH_76pEfQCK08B2g3cxI66tlwfxlRxRAMem2XfwCES7mMYCVzwYZgvk7pHRNF/pub?gid=1915587298&single=true&output=csv";
 
@@ -623,7 +711,6 @@
                 const dataText = await response.text();
                 const baris = dataText.split("\n");
                 const kontainerGaleri = document.getElementById('page-galeri');
-
                 if (!kontainerGaleri) return;
 
                 let htmlContent = `
@@ -647,7 +734,6 @@
                         } else if (rawFoto.startsWith("http")) {
                             fotoUrl = rawFoto;
                         }
-
                         const keterangan = kolom[3] || "";
 
                         if (fotoUrl) {
@@ -671,20 +757,18 @@
                         }
                     }
                 }
-
                 htmlContent += `</div></div>`;
                 kontainerGaleri.innerHTML = htmlContent;
-            } catch (error) {
-                console.error("Gagal menarik data Galeri:", error);
-            }
+            } catch (error) { console.error("Gagal menarik data Galeri:", error); }
         }
         muatGaleri();
     </script>
 
-    <!-- SCRIPT KAS (OTOMATIS TAMPIL SEMUA DATA SEKALIGUS) -->
+    <!-- SCRIPT KAS & CASHFLOW PRO AKURAT -->
     <script>
         const csvUrlKas = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQS5m5XbCmA6is1DwZyxyH_VO01iZzt5nyuuiIhm6hD0kON-VRXmM8wWbPBjHItmrrIaiZleBN11ZV7/pub?gid=1595758279&single=true&output=csv";
-        
+        const csvUrlCashflow = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQS5m5XbCmA6is1DwZyxyH_VO01iZzt5nyuuiIhm6hD0kON-VRXmM8wWbPBjHItmrrIaiZleBN11ZV7/pub?gid=2112204540&single=true&output=csv";
+
         let semuaDataKas = [];
         let prodiAktif = 'ALL';
 
@@ -693,23 +777,22 @@
             .then(data => {
                 semuaDataKas = parseCSVKas(data);
                 hitungRingkasanKas(semuaDataKas); 
-                // Langsung tampilkan seluruh data kas tanpa perlu ngetik nama dulu
                 tampilkanDataKas(semuaDataKas); 
             })
-            .catch(error => {
-                console.error('Gagal memuat data kas:', error);
-                document.getElementById('tabel-kas-body').innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: red;">Gagal memuat data kas.</td></tr>`;
-            });
+            .catch(error => console.error('Gagal memuat data kas warga:', error));
+
+        fetch(csvUrlCashflow)
+            .then(response => response.text())
+            .then(data => {
+                parseAndShowCashflowPro(data);
+            })
+            .catch(error => console.error('Gagal memuat data cashflow:', error));
 
         function parseCSVKas(text) {
             let lines = text.split("\n");
             let result = [];
             let nomorUrutOtomatis = 1; 
-            let indeksKolomNama = 1;
-            let indeksKolomProdi = 2;
-            let indeksKolomBayar = 3;
-            let indeksKolomTarget = 4;
-            let indeksKolomPersen = 5;
+            let indeksKolomNama = 1, indeksKolomProdi = 2, indeksKolomBayar = 3, indeksKolomTarget = 4, indeksKolomPersen = 5;
 
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].toUpperCase().includes("NAMA")) {
@@ -741,7 +824,6 @@
 
                 if (mulaiBaca) {
                     let kolomNama = currentLine[indeksKolomNama] ? currentLine[indeksKolomNama].trim() : "";
-
                     if (kolomNama && kolomNama !== "" && !kolomNama.toUpperCase().includes("REKAPITULASI")) {
                         result.push({
                             no: nomorUrutOtomatis++,
@@ -783,21 +865,110 @@
         }
 
         function hitungRingkasanKas(data) {
-            let totalBayarNum = 0;
-            let totalTargetNum = 0;
-
+            let totalBayarNum = 0, totalTargetNum = 0;
             data.forEach(item => {
-                let bayarClean = parseInt(item.telahBayar.replace(/[^0-9]/g, '')) || 0;
-                let targetClean = parseInt(item.target.replace(/[^0-9]/g, '')) || 0;
-                totalBayarNum += bayarClean;
-                totalTargetNum += targetClean;
+                totalBayarNum += parseInt(item.telahBayar.replace(/[^0-9]/g, '')) || 0;
+                totalTargetNum += parseInt(item.target.replace(/[^0-9]/g, '')) || 0;
             });
-
             let persenTotal = totalTargetNum > 0 ? ((totalBayarNum / totalTargetNum) * 100).toFixed(1) : 0;
-
             if(document.getElementById('total-target')) document.getElementById('total-target').innerText = formatRupiahKas(totalTargetNum);
             if(document.getElementById('total-bayar')) document.getElementById('total-bayar').innerText = formatRupiahKas(totalBayarNum);
             if(document.getElementById('total-persen')) document.getElementById('total-persen').innerText = persenTotal + '%';
+        }
+
+        // PARSER CASHFLOW PRO (DETEKSI HEADER KOLOM SECARA OTOMATIS PERSIS KAS UTAMA)
+        function parseAndShowCashflowPro(text) {
+            let lines = text.split("\n");
+            let tbody = document.getElementById('tabel-cashflow-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            let idxNo = 0, idxTanggal = 1, idxKet = 2, idxAwal = 3, idxKeluar = 4, idxSisa = 5;
+
+            // Cari baris header yang mengandung kata KETERANGAN
+            for (let i = 0; i < lines.length; i++) {
+                let upperLine = lines[i].toUpperCase();
+                if (upperLine.includes("KETERANGAN")) {
+                    let cols = parseCSVLine(lines[i]);
+                    for (let c = 0; c < cols.length; c++) {
+                        let headerName = cols[c].toUpperCase();
+                        if (headerName === "NO") idxNo = c;
+                        else if (headerName.includes("TANGGAL")) idxTanggal = c;
+                        else if (headerName.includes("KETERANGAN")) idxKet = c;
+                        else if (headerName.includes("SALDO AWAL")) idxAwal = c;
+                        else if (headerName.includes("KELUAR")) idxKeluar = c;
+                        else if (headerName.includes("SISA SALDO")) idxSisa = c;
+                    }
+                    break;
+                }
+            }
+
+            let listCash = [];
+            let totalPemasukan = 0;
+            let totalPengeluaran = 0;
+            let sisaSaldoAkhir = 0;
+
+            let mulaiBaca = false;
+            for (let i = 0; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                let currentLine = parseCSVLine(lines[i]);
+                let joined = currentLine.join(" ").toUpperCase();
+
+                if (joined.includes("KETERANGAN") && joined.includes("TANGGAL")) {
+                    mulaiBaca = true;
+                    continue;
+                }
+
+                if (mulaiBaca) {
+                    if (joined.includes("SISA SALDO OPERASIONAL")) {
+                        for (let c = 0; c < currentLine.length; c++) {
+                            let cleanNum = parseInt(currentLine[c].replace(/[^0-9]/g, ''));
+                            if (cleanNum > 0 && currentLine[c].includes("Rp")) {
+                                sisaSaldoAkhir = cleanNum;
+                            }
+                        }
+                        break;
+                    }
+
+                    let keterangan = currentLine[idxKet] ? currentLine[idxKet].trim() : "";
+                    if (keterangan && !keterangan.toUpperCase().includes("SISA SALDO")) {
+                        let tanggal = currentLine[idxTanggal] ? currentLine[idxTanggal].trim() : "-";
+                        let saldoAwal = currentLine[idxAwal] ? currentLine[idxAwal].trim() : "Rp0";
+                        let keluar = currentLine[idxKeluar] ? currentLine[idxKeluar].trim() : "Rp0";
+                        let sisaSaldo = currentLine[idxSisa] ? currentLine[idxSisa].trim() : "Rp0";
+
+                        listCash.push({ tanggal, keterangan, saldoAwal, keluar, sisaSaldo });
+
+                        let numAwal = parseInt(saldoAwal.replace(/[^0-9]/g, '')) || 0;
+                        if (totalPemasukan === 0 && numAwal > 0) totalPemasukan = numAwal;
+
+                        let numKeluar = parseInt(keluar.replace(/[^0-9]/g, '')) || 0;
+                        totalPengeluaran += numKeluar;
+
+                        let numSisa = parseInt(sisaSaldo.replace(/[^0-9]/g, '')) || 0;
+                        if (numSisa > 0) sisaSaldoAkhir = numSisa;
+                    }
+                }
+            }
+
+            // Render ke tabel HTML Cashflow secara berurutan rapi
+            listCash.forEach((item, index) => {
+                let tr = document.createElement('tr');
+                tr.className = "hover:bg-amber-50/50 dark:hover:bg-slate-800 transition uppercase";
+                tr.innerHTML = `
+                    <td class="py-3 px-3 text-center text-slate-500 dark:text-slate-400 font-medium">${index + 1}</td>
+                    <td class="py-3 px-3 text-center text-slate-600 dark:text-slate-300">${item.tanggal}</td>
+                    <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-200">${item.keterangan}</td>
+                    <td class="py-3 px-4 text-right text-blue-600 dark:text-blue-400 font-medium">${item.saldoAwal}</td>
+                    <td class="py-3 px-4 text-right text-rose-600 dark:text-rose-400 font-medium">${item.keluar}</td>
+                    <td class="py-3 px-4 text-right font-bold text-slate-800 dark:text-slate-200">${item.sisaSaldo}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if(document.getElementById('cash-pemasukan')) document.getElementById('cash-pemasukan').innerText = formatRupiahKas(totalPemasukan);
+            if(document.getElementById('cash-pengeluaran')) document.getElementById('cash-pengeluaran').innerText = formatRupiahKas(totalPengeluaran);
+            if(document.getElementById('cash-saldo-bersih')) document.getElementById('cash-saldo-bersih').innerText = formatRupiahKas(sisaSaldoAkhir);
         }
 
         function formatRupiahKas(angka) {
@@ -806,7 +977,6 @@
 
         function filterProdi(prodi) {
             prodiAktif = prodi.toUpperCase();
-            
             let buttons = document.querySelectorAll('.btn-prodi');
             buttons.forEach(btn => {
                 let textBtn = btn.innerText.toUpperCase();
@@ -819,7 +989,6 @@
                     btn.style.color = '';
                 }
             });
-            
             jalankanFilterDanPencarianKas();
         }
 
@@ -829,14 +998,12 @@
 
         function jalankanFilterDanPencarianKas() {
             let keyword = document.getElementById('search-nama').value.trim().toLowerCase();
-
             let hasilFilter = semuaDataKas.filter(item => {
                 let prodiItem = item.prodi.trim().toUpperCase();
                 let cocokProdi = (prodiAktif === 'ALL' || prodiItem === prodiAktif);
                 let cocokNama = item.nama.toLowerCase().includes(keyword);
                 return cocokProdi && cocokNama;
             });
-            
             tampilkanDataKas(hasilFilter);
         }
     </script>
