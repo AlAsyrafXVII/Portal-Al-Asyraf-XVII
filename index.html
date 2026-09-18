@@ -8,6 +8,11 @@
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="LOGO AL ASYRAF.png">
 
+    <!-- GOOGLE FONTS: PLUS JAKARTA SANS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- META TAG PREVIEW WHATSAPP -->
     <meta property="og:title" content="Portal Informasi Angkatan Al-Asyraf XVII">
     <meta property="og:description" content="Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah. Cek info, galeri, dan kas di sini!">
@@ -19,10 +24,18 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
         }
     </script>
     <style>
         body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('Kepanjangan Nama Angkatan.jpg');
             background-size: cover;
             background-position: center;
@@ -67,7 +80,7 @@
         }
 
         .card-transparan {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.70);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(251, 191, 36, 0.4);
@@ -75,7 +88,7 @@
         }
 
         body.dark .card-transparan {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(15, 23, 42, 0.80);
             border: 1px solid rgba(245, 158, 11, 0.3);
             color: #f1f5f9;
         }
@@ -96,7 +109,7 @@
         }
     </style>
 </head>
-<body class="text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col justify-between relative">
+<body class="text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between relative">
 
     <div id="welcome-toast" class="fixed top-5 right-5 z-50 bg-amber-900/95 text-amber-100 px-4 py-3 rounded-xl shadow-2xl border border-amber-400/50 backdrop-blur-md flex items-center gap-3 transition-all duration-500 transform translate-y-[-200%]" style="display: none;">
         <span class="text-xl">✨</span>
@@ -109,7 +122,7 @@
     <div>
         <header class="bg-gold-header-transparan text-white py-6 shadow-2xl relative">
             <div class="absolute top-4 right-4">
-                <button onclick="toggleDarkMode()" id="btn-darkmode" class="bg-white/10 hover:bg-white/20 border border-amber-300/40 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                <button onclick="toggleDarkMode()" id="btn-darkmode" class="bg-white/10 hover:bg-white/20 border border-amber-300/40 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
                     🌙 <span class="hidden sm:inline">Mode</span>
                 </button>
             </div>
@@ -122,7 +135,7 @@
 
                 <div class="text-center flex-grow w-full">
                     <h1 class="text-sm sm:text-lg md:text-2xl font-bold font-logo-style text-amber-100 uppercase leading-snug">PORTAL INFORMASI ANGKATAN AL ASYRAF XVII</h1>
-                    <p class="text-[9px] sm:text-[11px] md:text-xs text-amber-200/90 font-semibold tracking-wider uppercase mt-1">Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah</p>
+                    <p class="text-[9px] sm:text-[11px] md:text-xs text-amber-200/90 font-medium tracking-wider uppercase mt-1">Aliansi Angkatan Solid yang Responsif, Aktif, dan Berfaedah</p>
                     
                     <div class="mt-4 flex justify-center gap-2 sm:gap-3 flex-wrap">
                         <button id="nav-beranda" onclick="tampilHalaman('beranda')" class="nav-btn bg-amber-600 border border-amber-300 px-4 sm:px-5 py-1.5 text-white rounded-lg font-bold text-xs tracking-wider shadow-sm transition duration-200 uppercase">Beranda</button>
@@ -149,7 +162,7 @@
                 <div id="kontainer-list-beranda">
                     <section class="card-transparan rounded-xl shadow-lg border border-amber-200/80 p-6 sm:p-8 mb-8 text-center">
                       <h2 class="text-xl sm:text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Update Terbaru</h2>
-                      <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base normal-case">Memuat informasi terbaru...</p>
+                      <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base normal-case font-medium">Memuat informasi terbaru...</p>
                     </section>
                 </div>
             </div>
@@ -162,7 +175,7 @@
                     
                     <div class="text-center mb-6">
                       <h2 class="text-xl sm:text-2xl font-bold text-gold-custom mb-1 uppercase tracking-wide">Transparansi Dana Kas Angkatan</h2>
-                      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm normal-case">Update real-time dari Rekapitulasi Keuangan & Cashflow Al-Asyraf XVII</p>
+                      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm normal-case font-medium">Update real-time dari Rekapitulasi Keuangan & Cashflow Al-Asyraf XVII</p>
                     </div>
 
                     <!-- TOMBOL SUB-TAB (PILIHAN TAMPILAN KAS) -->
@@ -201,7 +214,7 @@
                             <button onclick="filterProdi('HKI')" class="btn-prodi px-3 sm:px-4 py-1.5 border border-amber-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-md cursor-pointer text-xs font-bold uppercase tracking-wider hover:border-amber-400 transition">HKI</button>
                           </div>
                           <div class="w-full sm:w-auto">
-                            <input type="text" id="search-nama" placeholder="CARI NAMA WARGA..." onkeyup="cariNama()" class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 bg-white/90 dark:bg-slate-900 dark:text-white rounded-md text-xs w-full sm:w-56 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500 transition placeholder:normal-case">
+                            <input type="text" id="search-nama" placeholder="CARI NAMA WARGA..." onkeyup="cariNama()" class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 bg-white/90 dark:bg-slate-900 dark:text-white rounded-md text-xs w-full sm:w-56 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500 transition placeholder:normal-case font-medium">
                           </div>
                         </div>
 
@@ -218,7 +231,7 @@
                                         <th class="py-3 px-3 text-center w-20">PERSENTASE</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tabel-kas-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase"></tbody>
+                                <tbody id="tabel-kas-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase font-medium"></tbody>
                             </table>
                         </div>
                     </div>
@@ -254,7 +267,7 @@
                                         <th class="py-3 px-4 text-right">SISA SALDO</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tabel-cashflow-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase"></tbody>
+                                <tbody id="tabel-cashflow-body" class="divide-y divide-amber-100 dark:divide-slate-800 uppercase font-medium"></tbody>
                             </table>
                         </div>
 
@@ -263,7 +276,7 @@
                             <h4 class="font-bold text-amber-900 dark:text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
                                 <span>📌</span> Catatan Transparansi Keuangan:
                             </h4>
-                            <ul class="list-disc list-inside space-y-1 normal-case pl-1">
+                            <ul class="list-disc list-inside space-y-1 normal-case pl-1 font-medium">
                                 <li><strong>Saldo Awal / Pemasukan</strong> dihitung berdasarkan akumulasi dana kas masuk dan kas operasional angkatan.</li>
                                 <li><strong>Pengeluaran (Keluar)</strong> dicatat secara berkala berdasarkan setiap transaksi atau belanja kebutuhan kegiatan angkatan.</li>
                                 <li><strong>Sisa Saldo Operasional</strong> menunjukkan sisa dana riil yang saat ini dipegang oleh bendahara/pengurus dan siap digunakan untuk kepentingan angkatan.</li>
@@ -347,7 +360,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Fungsi Pilih Sub-Tab di Menu Kas (Warga vs Cashflow)
         function pilihSubTab(jenis) {
             const tabWarga = document.getElementById('subtab-warga');
             const tabCashflow = document.getElementById('subtab-cashflow');
@@ -545,7 +557,7 @@
                 kontainer.innerHTML = `
                     <section class="card-transparan rounded-xl shadow-lg border border-amber-200/80 p-8 mb-8 text-center">
                       <h2 class="text-2xl font-bold mb-3 text-gold-custom uppercase tracking-wide">Informasi Tidak Ditemukan</h2>
-                      <p class="text-slate-600 dark:text-slate-300 normal-case">Pencarian pengumuman Anda tidak cocok dengan data manapun.</p>
+                      <p class="text-slate-600 dark:text-slate-300 normal-case font-medium">Pencarian pengumuman Anda tidak cocok dengan data manapun.</p>
                     </section>`;
                 return;
             }
@@ -574,7 +586,7 @@
                 
                 if (post.keterangan) {
                     let formatKeterangan = post.keterangan.replace(/\r?\n/g, '<br>');
-                    htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4">${formatKeterangan}</div>`;
+                    htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4 font-normal">${formatKeterangan}</div>`;
                 }
 
                 let totalLike = globalLikes[post.id] || 0;
@@ -600,7 +612,7 @@
                     </div>
                     <div class="flex gap-2">
                         <input type="text" id="input-nama-${post.id}" placeholder="NAMA ANDA..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs w-1/3 bg-white/90 dark:bg-slate-800 dark:text-white uppercase font-semibold">
-                        <input type="text" id="input-pesan-${post.id}" placeholder="Tulis komentar..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs flex-grow bg-white/95 dark:bg-slate-800 dark:text-white normal-case" onkeypress="if(event.key === 'Enter') kirimKomentar(${post.id})">
+                        <input type="text" id="input-pesan-${post.id}" placeholder="Tulis komentar..." class="px-3 py-1.5 border border-amber-300 dark:border-slate-600 rounded-lg text-xs flex-grow bg-white/95 dark:bg-slate-800 dark:text-white normal-case font-medium" onkeypress="if(event.key === 'Enter') kirimKomentar(${post.id})">
                         <button onclick="kirimKomentar(${post.id})" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold uppercase shadow-sm">Kirim</button>
                     </div>
                 </div>
@@ -684,7 +696,7 @@
                 komentarList.forEach(k => {
                     const div = document.createElement('div');
                     div.className = "bg-amber-50/70 dark:bg-slate-800 p-2.5 rounded-lg border border-amber-200/60 dark:border-slate-700 text-xs";
-                    div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${k.nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${k.waktu}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case">${k.pesan}</p>`;
+                    div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${k.nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${k.waktu}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case font-medium">${k.pesan}</p>`;
                     listContainer.appendChild(div);
                 });
             } catch (e) {
@@ -709,7 +721,7 @@
             
             const div = document.createElement('div');
             div.className = "bg-amber-50/70 dark:bg-slate-800 p-2.5 rounded-lg border border-amber-200/60 dark:border-slate-700 text-xs";
-            div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${waktuNow}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case">${pesan}</p>`;
+            div.innerHTML = `<div class="flex justify-between font-bold text-amber-900 dark:text-amber-400 mb-0.5"><span class="uppercase">${nama}</span><span class="text-[10px] text-slate-600 dark:text-slate-400">${waktuNow}</span></div><p class="text-slate-700 dark:text-slate-300 normal-case font-medium">${pesan}</p>`;
             listContainer.appendChild(div);
 
             inputPesan.value = "";
@@ -779,7 +791,7 @@
                                         <div class="p-4">
                                             <span class="text-xs text-amber-700 dark:text-amber-400 font-semibold uppercase">${timestamp}</span>
                                             <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mt-1 uppercase">${judul}</h3>
-                                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed normal-case">${keterangan}</p>
+                                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed normal-case font-medium">${keterangan}</p>
                                         </div>
                                     </div>
                                     <div class="p-4 pt-0">
@@ -886,13 +898,13 @@
 
             data.forEach((row, index) => {
                 let tr = document.createElement('tr');
-                tr.className = "hover:bg-amber-50/50 dark:hover:bg-slate-800 transition uppercase";
+                tr.className = "hover:bg-amber-50/50 dark:hover:bg-slate-800 transition uppercase font-medium";
                 tr.innerHTML = `
-                    <td class="py-3 px-3 text-center text-slate-500 dark:text-slate-400 font-medium">${index + 1}</td>
-                    <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-200 whitespace-nowrap">${row.nama}</td>
-                    <td class="py-3 px-3 text-center"><span class="bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 px-2 py-0.5 rounded text-[11px] font-bold">${row.prodi}</span></td>
-                    <td class="py-3 px-4 text-right font-semibold text-emerald-600 dark:text-emerald-400">${row.telahBayar}</td>
-                    <td class="py-3 px-4 text-right text-slate-600 dark:text-slate-400">${row.target}</td>
+                    <td class="py-3 px-3 text-center text-slate-500 dark:text-slate-400 font-semibold">${index + 1}</td>
+                    <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-200 whitespace-nowrap">${row.nama}</td>
+                    <td class="py-3 px-3 text-center"><span class="bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 px-2.5 py-1 rounded text-[11px] font-bold">${row.prodi}</span></td>
+                    <td class="py-3 px-4 text-right font-bold text-emerald-600 dark:text-emerald-400">${row.telahBayar}</td>
+                    <td class="py-3 px-4 text-right font-semibold text-slate-600 dark:text-slate-400">${row.target}</td>
                     <td class="py-3 px-3 text-center font-bold text-amber-600 dark:text-amber-400">${row.persentase}</td>
                 `;
                 tbody.appendChild(tr);
@@ -986,13 +998,13 @@
 
             listCash.forEach((item, index) => {
                 let tr = document.createElement('tr');
-                tr.className = "hover:bg-amber-50/50 dark:hover:bg-slate-800 transition uppercase";
+                tr.className = "hover:bg-amber-50/50 dark:hover:bg-slate-800 transition uppercase font-medium";
                 tr.innerHTML = `
-                    <td class="py-3 px-3 text-center text-slate-500 dark:text-slate-400 font-medium">${index + 1}</td>
-                    <td class="py-3 px-3 text-center text-slate-600 dark:text-slate-300">${item.tanggal}</td>
-                    <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-200">${item.keterangan}</td>
-                    <td class="py-3 px-4 text-right text-blue-600 dark:text-blue-400 font-medium">${item.saldoAwal}</td>
-                    <td class="py-3 px-4 text-right text-rose-600 dark:text-rose-400 font-medium">${item.keluar}</td>
+                    <td class="py-3 px-3 text-center text-slate-500 dark:text-slate-400 font-semibold">${index + 1}</td>
+                    <td class="py-3 px-3 text-center text-slate-600 dark:text-slate-300 font-medium">${item.tanggal}</td>
+                    <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-200">${item.keterangan}</td>
+                    <td class="py-3 px-4 text-right text-blue-600 dark:text-blue-400 font-semibold">${item.saldoAwal}</td>
+                    <td class="py-3 px-4 text-right text-rose-600 dark:text-rose-400 font-semibold">${item.keluar}</td>
                     <td class="py-3 px-4 text-right font-bold text-slate-800 dark:text-slate-200">${item.sisaSaldo}</td>
                 `;
                 tbody.appendChild(tr);
