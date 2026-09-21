@@ -889,7 +889,12 @@
                             <img src="${post.poster}" alt="Poster" class="mx-auto rounded-lg w-full object-contain max-h-[600px] group-hover:scale-102 transition duration-300" onerror="this.parentElement.style.display='none'">
                         </div></div>`;
                 }
-                if (post.keterangan) htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4 font-normal">${post.keterangan.replace(/\r?\n/g, '<br>')}</div>`;
+                
+                // BAGIAN INI YANG DIPERBARUI BIAR \n BERUBAH JADI BARIS BARU (<br>)
+                if (post.keterangan) {
+                    let bersihKeterangan = post.keterangan.replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
+                    htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4 font-normal">${bersihKeterangan}</div>`;
+                }
                 
                 let totalLike = globalLikes[post.id] !== undefined ? parseInt(globalLikes[post.id]) : 0;
                 
@@ -921,7 +926,6 @@
                 
                 kartu.innerHTML = htmlIsi;
                 kontainer.appendChild(kartu);
-                
                 cekStatusLikeLokal(post.id);
             });
         }
