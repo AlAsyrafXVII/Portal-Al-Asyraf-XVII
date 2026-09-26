@@ -108,6 +108,16 @@
                 transform: translateY(0);
             }
         }
+
+        /* TAMBAHAN CSS UNTUK ZOOM POSTER LIGHTBOX */
+        #lightbox-img {
+            transition: transform 0.1s ease-out;
+            cursor: grab;
+            transform-origin: center center;
+        }
+        #lightbox-img:active {
+            cursor: grabbing;
+        }
     </style>
 </head>
 <body class="text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between relative">
@@ -377,13 +387,15 @@
         </main>
     </div>
 
+    <!-- TOMBOL BACK TO TOP -->
     <button id="btn-backtotop" onclick="kembaliKeAtas()" class="fixed bottom-6 right-6 z-40 bg-amber-700 hover:bg-amber-800 text-white w-10 h-10 rounded-full shadow-lg border border-amber-400/50 flex items-center justify-center text-sm font-bold transition-all duration-300 transform translate-y-20 opacity-0 cursor-pointer">
         ▲
     </button>
 
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden" onclick="tutupLightbox()">
-        <div class="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center">
-            <button class="absolute top-4 right-4 bg-amber-600 hover:bg-amber-700 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-lg transition" onclick="tutupLightbox()">&times;</button>
+    <!-- LIGHTBOX MODAL DENGAN FITUR ZOOM -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden" onclick="tutupLightbox(event)">
+        <div class="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 z-10 bg-amber-600 hover:bg-amber-700 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-lg transition cursor-pointer" onclick="tutupLightbox()">&times;</button>
             <img id="lightbox-img" src="" alt="Zoom Poster" class="max-h-[85vh] max-w-full object-contain rounded-lg shadow-2xl border-2 border-amber-400/50">
         </div>
     </div>
@@ -778,16 +790,60 @@
             return result.map(item => item.replace(/^"|"$/g, '').trim());
         }
 
+        // FUNGSI LIGHTBOX & INTERAKTIF ZOOM
+        let scale = 1;
+        let panned = false;
+        let startX = 0, startY = 0;
+        let translateX = 0, translateY = 0;
+
         function bukaLightbox(urlGambar) {
             const modal = document.getElementById('lightbox-modal');
             const img = document.getElementById('lightbox-img');
             img.src = urlGambar;
+            scale = 1;
+            translateX = 0;
+            translateY = 0;
+            img.style.transform = `translate(0px, 0px) scale(1)`;
             modal.classList.remove('hidden');
         }
 
         function tutupLightbox() {
             const modal = document.getElementById('lightbox-modal');
             modal.classList.add('hidden');
+        }
+
+        const lightboxImg = document.getElementById('lightbox-img');
+        if (lightboxImg) {
+            lightboxImg.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const zoomIntensity = 0.15;
+                if (e.deltaY < 0) {
+                    scale += zoomIntensity;
+                } else {
+                    scale = Math.max(1, scale - zoomIntensity);
+                }
+                if (scale === 1) { translateX = 0; translateY = 0; }
+                lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            });
+
+            lightboxImg.addEventListener('mousedown', (e) => {
+                if (scale > 1) {
+                    panned = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!panned) return;
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            });
+
+            window.addEventListener('mouseup', () => {
+                panned = false;
+            });
         }
 
         initLoadData();
@@ -890,7 +946,6 @@
                         </div></div>`;
                 }
                 
-                // BAGIAN INI YANG DIPERBARUI BIAR \n BERUBAH JADI BARIS BARU (<br>)
                 if (post.keterangan) {
                     let bersihKeterangan = post.keterangan.replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
                     htmlIsi += `<div class="text-slate-700 dark:text-slate-200 mt-6 leading-relaxed normal-case text-base md:text-lg space-y-4 font-normal">${bersihKeterangan}</div>`;
@@ -1056,6 +1111,24 @@
             }
         }
 
+        // SCRIPT BACK TO TOP
+        const btnBackToTop = document.getElementById('btn-backtotop');
+        if (btnBackToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    btnBackToTop.classList.remove('translate-y-20', 'opacity-0');
+                    btnBackToTop.classList.add('translate-y-0', 'opacity-100');
+                } else {
+                    btnBackToTop.classList.add('translate-y-20', 'opacity-0');
+                    btnBackToTop.classList.remove('translate-y-0', 'opacity-100');
+                }
+            });
+        }
+
+        function kembaliKeAtas() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         muatPengumuman();
     </script>
 
@@ -1106,7 +1179,7 @@
                                         </div>
                                     </div>
                                     <div class="p-4 pt-0">
-                                        <a href="${rawFoto}" target="_blank" class="block w-full bg-amber-600 hover:bg-amber-700 text-white text-center text-xs font-bold py-2 rounded-md transition duration-200 uppercase tracking-wider">
+                                       <a href="${rawFoto}" target="_blank" class="block w-full bg-amber-600 hover:bg-amber-700 text-white text-center text-xs font-bold py-2 rounded-md transition duration-200 uppercase tracking-wider">
                                             Buka & Download via Drive
                                         </a>
                                     </div>
@@ -1117,7 +1190,9 @@
                 }
                 htmlContent += `</div></div>`;
                 kontainerGaleri.innerHTML = htmlContent;
-            } catch (error) {}
+            } catch (error) {
+                console.error("Error loading gallery:", error);
+            }
         }
         muatGaleri();
     </script>
